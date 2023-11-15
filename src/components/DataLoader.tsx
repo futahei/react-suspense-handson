@@ -1,28 +1,21 @@
 import React, { useMemo, useState } from "react";
+import { useData } from "../hooks/useData";
 import { fetchData1 } from "../data/fetchData1";
-import { sleep } from "../utils/sleep";
 
-export const DataLoader: React.VFC = () => {
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<string | null>(null);
-
-  const _ = useMemo(() => {
-    if (loading) {
-      console.log("loading is true");
-    }
-    return 1;
-  }, [loading]);
-
-  if (loading && data === null) {
-    throw fetchData1().then(setData);
-  }
-
+export const DataLoader1: React.VFC = () => {
+  const data = useData("DataLoader1", fetchData1);
   return (
     <div>
       <div>Data is {data}</div>
-      <button className="border p-1" onClick={() => setLoading(true)}>
-        load
-      </button>
+    </div>
+  );
+};
+
+export const DataLoader2: React.VFC = () => {
+  const data = useData("DataLoader2", fetchData1);
+  return (
+    <div>
+      <div>Data is {data}</div>
     </div>
   );
 };
